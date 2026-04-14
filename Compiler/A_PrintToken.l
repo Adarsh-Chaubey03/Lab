@@ -39,7 +39,7 @@ int main()
 
 /*  How to Run ?
 
-lex file.l
+lex A_PrintToken.l
 gcc lex.yy.c -o A_PrintToken
 ./A_PrintToken
  
