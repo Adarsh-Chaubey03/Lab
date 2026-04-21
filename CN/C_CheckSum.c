@@ -50,3 +50,16 @@ int main() {
 	receiver(arr, n, sch);
 	return 0;
 }
+
+
+/* Enter number of data segments: 2
+Enter 2 data values:
+1011 1000
+****SENDER SIDE****
+SUM IS: 0 00001111 1011011
+CHECKSUM IS: 1 11110000 0100100
+****RECEIVER SIDE****
+SUM IS: 0 00001111 1011011
+SUM+CHECKSUM: 1 11111111 1111111
+FINAL CHECKSUM: 0 00000000 0000000
+No error detected*/
