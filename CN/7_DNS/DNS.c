@@ -34,7 +34,7 @@ int main(){
 		}
 	}
 	else{
-		printf("Error: you Entered wrong choice\n");
+		printf("Error! You Entered wrong choice\n");
 	}
 
 	fclose(fp);
