@@ -1,0 +1,84 @@
+#include <stdio.h>
+
+#define INF 999
+
+int n;
+int cost[10][10], dist[10][10], via[10][10];
+
+void input() {
+    printf("enter the value of no. of nodes\n");
+    scanf("%d", &n);
+
+    printf("Enter the routing table : \n\t|");
+    for(int i = 0; i < n; i++)
+        printf("%c\t", i + 'a');
+
+    printf("\n");
+    for(int i = 0; i <= n; i++)
+        printf("-------");
+    printf("\n");
+
+    for(int i = 0; i < n; i++) {
+        printf("%c |", i + 'a');
+        for(int j = 0; j < n; j++) {
+            scanf("%d", &cost[i][j]);
+            dist[i][j] = cost[i][j];
+            via[i][j] = j;
+        }
+    }
+}
+
+void distance_vector() {
+    for(int k = 0; k < n; k++)
+        for(int i = 0; i < n; i++)
+            for(int j = 0; j < n; j++)
+                if(dist[i][k] + dist[k][j] < dist[i][j]) {
+                    dist[i][j] = dist[i][k] + dist[k][j];
+                    via[i][j] = k;
+                }
+}
+
+void display() {
+    for(int i = 0; i < n; i++) {
+        printf("table for router %c\n", i + 'a');
+        for(int j = 0; j < n; j++)
+            printf("%c:: %d via %c\n",
+                   j + 'a',
+                   dist[i][j],
+                   via[i][j] + 'a');
+    }
+}
+
+int main() {
+    int ch, u, v, c;
+
+    input();
+
+    while(1) {
+        distance_vector();
+        display();
+
+        printf("do you want to change the cost(1/0)\n");
+        scanf("%d", &ch);
+
+        if(ch == 1) {
+            printf("enter the vertices which you want to change the cost\n");
+            scanf("%d %d", &u, &v);
+
+            printf("enter the cost\n");
+            scanf("%d", &c);
+
+            cost[u-1][v-1] = cost[v-1][u-1] = c;
+
+            // reset dist matrix
+            for(int i = 0; i < n; i++)
+                for(int j = 0; j < n; j++) {
+                    dist[i][j] = cost[i][j];
+                    via[i][j] = j;
+                }
+        }
+        else break;
+    }
+
+    return 0;
+}
