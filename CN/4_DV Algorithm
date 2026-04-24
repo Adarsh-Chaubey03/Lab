@@ -2,61 +2,45 @@
 
 #define INF 999
 
-int n;
-int cost[10][10], dist[10][10], via[10][10];
+int main() {
+    int n, i, j, k, ch, u, v, cost;
+    int d[10][10], via[10][10];
 
-void input() {
     printf("enter the value of no. of nodes\n");
     scanf("%d", &n);
 
     printf("Enter the routing table : \n\t|");
-    for(int i = 0; i < n; i++)
-        printf("%c\t", i + 'a');
-
+    for(i = 0; i < n; i++) printf("%c\t", i + 'a');
     printf("\n");
-    for(int i = 0; i <= n; i++)
-        printf("-------");
+    for(i = 0; i <= n; i++) printf("-------");
     printf("\n");
 
-    for(int i = 0; i < n; i++) {
+    for(i = 0; i < n; i++) {
         printf("%c |", i + 'a');
-        for(int j = 0; j < n; j++) {
-            scanf("%d", &cost[i][j]);
-            dist[i][j] = cost[i][j];
+        for(j = 0; j < n; j++) {
+            scanf("%d", &d[i][j]);
             via[i][j] = j;
         }
     }
-}
-
-void distance_vector() {
-    for(int k = 0; k < n; k++)
-        for(int i = 0; i < n; i++)
-            for(int j = 0; j < n; j++)
-                if(dist[i][k] + dist[k][j] < dist[i][j]) {
-                    dist[i][j] = dist[i][k] + dist[k][j];
-                    via[i][j] = k;
-                }
-}
-
-void display() {
-    for(int i = 0; i < n; i++) {
-        printf("table for router %c\n", i + 'a');
-        for(int j = 0; j < n; j++)
-            printf("%c:: %d via %c\n",
-                   j + 'a',
-                   dist[i][j],
-                   via[i][j] + 'a');
-    }
-}
-
-int main() {
-    int ch, u, v, c;
-
-    input();
 
     while(1) {
-        distance_vector();
-        display();
+
+        // core DV logic (shortest path update)
+        for(k = 0; k < n; k++)
+            for(i = 0; i < n; i++)
+                for(j = 0; j < n; j++)
+                    if(d[i][k] + d[k][j] < d[i][j]) {
+                        d[i][j] = d[i][k] + d[k][j];
+                        via[i][j] = k;
+                    }
+
+        // output (same format)
+        for(i = 0; i < n; i++) {
+            printf("table for router %c\n", i + 'a');
+            for(j = 0; j < n; j++)
+                printf("%c:: %d via %c\n",
+                       j + 'a', d[i][j], via[i][j] + 'a');
+        }
 
         printf("do you want to change the cost(1/0)\n");
         scanf("%d", &ch);
@@ -66,16 +50,9 @@ int main() {
             scanf("%d %d", &u, &v);
 
             printf("enter the cost\n");
-            scanf("%d", &c);
+            scanf("%d", &cost);
 
-            cost[u-1][v-1] = cost[v-1][u-1] = c;
-
-            // reset dist matrix
-            for(int i = 0; i < n; i++)
-                for(int j = 0; j < n; j++) {
-                    dist[i][j] = cost[i][j];
-                    via[i][j] = j;
-                }
+            d[u-1][v-1] = d[v-1][u-1] = cost;
         }
         else break;
     }
