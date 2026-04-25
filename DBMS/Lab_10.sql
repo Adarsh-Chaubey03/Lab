@@ -1,4 +1,4 @@
--------------------- TABLE CREATION --------------------
+
 
 CREATE TABLE STATION (
     STATION_ID INT PRIMARY KEY,
@@ -41,8 +41,6 @@ CREATE TABLE RESERVATION (
     FOREIGN KEY (TICKET_ID) REFERENCES TICKET(TICKET_ID)
 );
 
-
--------------------- INSERTION (USING INSERT ALL) --------------------
 
 -- STATION
 INSERT ALL
