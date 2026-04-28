@@ -20,9 +20,10 @@ int yywrap() {
 
 
 /* How to Run ?
+
 yacc -d rhyme.y
 lex rhyme.l
-gcc lex.yy.c y.tab.c -o out          // gcc y.tab.c lex.yy.c -o out  // do this if you get an error: ld returned 1 exit status
+gcc y.tab.c lex.yy.c -o out  
 ./a.out
 
 Enter input:
