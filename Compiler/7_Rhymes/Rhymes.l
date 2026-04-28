@@ -24,7 +24,7 @@ int yywrap() {
 yacc -d rhyme.y
 lex rhyme.l
 gcc y.tab.c lex.yy.c -o out  
-./a.out
+./a.out                     or ./rhyme 
 
 Enter input:
 chik chek india
